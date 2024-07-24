@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator</title>
+    <link rel="stylesheet" href="calc.css">
+</head>
+<body>
+    <div class="container">
+        <div class="calculator">
+            <h1>JavaScript <br><span>Age Calculator</span></h1>
+            <div class="input-box">
+                <input type="date" id="Date">
+                <button onclick="calculateAge()">Calculate</button>
+            </div>
+            <p id="result"></p>
+        </div>
+    </div>
+    <script>
+        function calculateAge() {
+            let userInput = document.getElementById("Date");
+            let birthDate = new Date(userInput.value);
+            let today = new Date();
+
+            let yearsDiff = today.getFullYear() - birthDate.getFullYear();
+            let monthsDiff = today.getMonth() - birthDate.getMonth();
+            let daysDiff = today.getDate() - birthDate.getDate();
+
+            if (monthsDiff < 0 || (monthsDiff === 0 && daysDiff < 0)) {
+                yearsDiff--;
+                monthsDiff += (monthsDiff < 0 ? 12 : 0);
+            }
+
+            if (daysDiff < 0) {
+                let lastMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+                daysDiff = lastMonth.getDate() - birthDate.getDate() + today.getDate();
+                monthsDiff--;
+            }
+
+            let ageString = `You are <span>${yearsDiff}</span> years, <span>${monthsDiff}</span> months and <span>${daysDiff}</span> days old`;
+            document.getElementById("result").innerHTML = ageString;
+        }
+    </script>
+</body>
+</html>
+
